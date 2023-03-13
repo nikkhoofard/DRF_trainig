@@ -1,10 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'blog/base.html' %}
 
-</body>
-</html>
+{% block main %}
+    <article>
+         <h1>Title: {{object.title}}</h1>
+         <h2>{{object.slug}}</h2>
+         <h3>author : {{object.author}}</h3>
+         <h4>{{object.content}}</h4>
+         <h4>Date Publish: {{object.publish}}</h4>
+         <h3>Date Update: {{objects.updated}}</h3>
+    </article>
+    <br>
+{% endblock %}
