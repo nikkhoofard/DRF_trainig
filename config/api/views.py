@@ -3,7 +3,7 @@ from rest_framework.generics import (ListCreateAPIView, RetrieveAPIView,
                                      DestroyAPIView,
                                      RetrieveUpdateDestroyAPIView)
 from django.contrib.auth.models import User
-
+from rest_framework.permissions import IsAdminUser
 
 from .serializer import ArticleSerializer, UserSerializer
 # from ..blog.models import Article
@@ -25,8 +25,10 @@ class ArticleDetail(DestroyAPIView):
 class UserList(ListCreateAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
+    permission_classes = (IsAdminUser,)
 
 
-class UserDetail(DestroyAPIView):
+class UserDetail(RetrieveUpdateDestroyAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
+    permission_classes = (IsAdminUser,)
