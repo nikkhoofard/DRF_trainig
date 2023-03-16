@@ -4,7 +4,7 @@ from rest_framework.generics import (ListCreateAPIView, RetrieveAPIView,
                                      RetrieveUpdateDestroyAPIView)
 from django.contrib.auth.models import User
 from rest_framework.permissions import IsAdminUser
-from .permissions import IsSuperUser, IsStaffOrReadOnly, IsAuthorOrReadOnly
+from .permissions import IsSuperUserOrStaffReadOnly, IsStaffOrReadOnly, IsAuthorOrReadOnly
 
 from .serializer import ArticleSerializer, UserSerializer
 # from ..blog.models import Article
@@ -20,17 +20,17 @@ class ArticleList(ListCreateAPIView):
 class ArticleDetail(DestroyAPIView):
     queryset = Article.objects.all()
     serializer_class = ArticleSerializer
-    permission_classes = (IsStaffOrReadOnly, IsAuthorOrReadOnly)
+    permission_classes = (IsStaffOrReadOnly, IsAuthorOrReadOnly )
     #lookup_field = 'slug'
 
 
 class UserList(ListCreateAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
-    permission_classes = (IsSuperUser,)
+    permission_classes = (IsSuperUserOrStaffReadOnly,)
 
 
 class UserDetail(RetrieveUpdateDestroyAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
-    permission_classes = (IsSuperUser,)
+    permission_classes = (IsSuperUserOrStaffReadOnly,)
