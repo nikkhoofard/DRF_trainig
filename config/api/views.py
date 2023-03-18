@@ -3,8 +3,8 @@ from rest_framework.generics import (ListCreateAPIView, RetrieveAPIView,
                                      DestroyAPIView,
                                      RetrieveUpdateDestroyAPIView)
 from django.contrib.auth.models import User
-from rest_framework.views import APIView
-from rest_framework.response import Response
+# from rest_framework.views import APIView
+# from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from .permissions import IsSuperUserOrStaffReadOnly, IsStaffOrReadOnly, IsAuthorOrReadOnly
 
@@ -38,9 +38,9 @@ class UserDetail(RetrieveUpdateDestroyAPIView):
     permission_classes = (IsSuperUserOrStaffReadOnly,)
 
 
-class RevokeToken(APIView):
-    permission_classes = (IsAuthenticated,)
-
-    def delete(self, request):
-        request.auth.delete()
-        return Response(status=204)
+# class RevokeToken(APIView):
+#     permission_classes = (IsAuthenticated,)
+#
+    # def delete(self, request):
+    #     request.auth.delete()
+    #     return Response(status=204)
