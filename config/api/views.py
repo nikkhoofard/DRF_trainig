@@ -6,7 +6,9 @@ from django.contrib.auth.models import User
 # from rest_framework.views import APIView
 # from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
-from .permissions import IsSuperUserOrStaffReadOnly, IsStaffOrReadOnly, IsAuthorOrReadOnly
+from .permissions import (IsSuperUserOrStaffReadOnly,
+                          IsStaffOrReadOnly,
+                          IsAuthorOrReadOnly)
 
 from .serializer import ArticleSerializer, UserSerializer
 # from ..blog.models import Article
