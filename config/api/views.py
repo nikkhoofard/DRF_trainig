@@ -12,6 +12,8 @@ from .permissions import (IsSuperUserOrStaffReadOnly,
                           IsAuthorOrReadOnly)
 
 from .serializer import ArticleSerializer, UserSerializer
+
+from rest_framework import filters
 # from ..blog.models import Article
 from blog.models import Article
 
@@ -31,7 +33,16 @@ from blog.models import Article
 class ArticleViewsSet(ModelViewSet):
     queryset = Article.objects.all()
     serializer_class = ArticleSerializer
-    filterset_fields = ['status', 'author']
+
+    filter_backends = [filters.SearchFilter, filters.OrderingFilter]
+    search_fields = [
+        'author__username',
+        'author__first_name',
+        'title',
+        'content',
+                     ]
+    ordering = ['-publish']
+    ordering_fields = ['publish', 'updated', 'status']
 
     # def get_queryset(self):
     #     status = self.request.query_params.get('status')
