@@ -6,9 +6,10 @@ from rest_framework import routers
 app_name = 'api'
 
 router = routers.SimpleRouter()
-router.register('users', UserViewSet)
-router.register('', ArticleViewsSet)
-urlpatterns = router.urls
+
+router.register('users', UserViewSet, basename='articles')
+router.register('articles', ArticleViewsSet, basename='users')
+
 
 urlpatterns = [
   path("", include(router.urls))

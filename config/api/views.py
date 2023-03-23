@@ -1,8 +1,8 @@
-from django.shortcuts import render
+# from django.shortcuts import render
 from rest_framework.viewsets import ModelViewSet
-from rest_framework.generics import (ListCreateAPIView, RetrieveAPIView,
-                                     DestroyAPIView,
-                                     RetrieveUpdateDestroyAPIView)
+# from rest_framework.generics import (ListCreateAPIView, RetrieveAPIView,
+#                                      DestroyAPIView,
+#                                      RetrieveUpdateDestroyAPIView)
 from django.contrib.auth import get_user_model
 # from rest_framework.views import APIView
 # from rest_framework.response import Response
@@ -31,6 +31,17 @@ from blog.models import Article
 class ArticleViewsSet(ModelViewSet):
     queryset = Article.objects.all()
     serializer_class = ArticleSerializer
+    filterset_fields = ['status', 'author']
+
+    # def get_queryset(self):
+    #     status = self.request.query_params.get('status')
+    #     if status is not None:
+    #         queryset = queryset.filter(status=status)
+    #
+    #     author = self.request.query_params.get('author')
+    #     if author is not None:
+    #         queryset = queryset.filter(author=author)
+    #     return queryset
 
     def get_permissions(self):
         if self.action in ['list', 'create']:
