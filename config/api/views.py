@@ -1,8 +1,7 @@
 # from django.shortcuts import render
 from rest_framework.viewsets import ModelViewSet
-# from rest_framework.generics import (ListCreateAPIView, RetrieveAPIView,
-#                                      DestroyAPIView,
-#                                      RetrieveUpdateDestroyAPIView)
+from rest_framework.generics import RetrieveAPIView
+
 from django.contrib.auth import get_user_model
 # from rest_framework.views import APIView
 # from rest_framework.response import Response
@@ -11,7 +10,7 @@ from .permissions import (IsSuperUserOrStaffReadOnly,
                           IsStaffOrReadOnly,
                           IsAuthorOrReadOnly)
 
-from .serializer import ArticleSerializer, UserSerializer
+from .serializer import ArticleSerializer, UserSerializer, AuthorSerializer
 
 from rest_framework import filters
 # from ..blog.models import Article
@@ -85,3 +84,8 @@ class UserViewSet(ModelViewSet):
     # def delete(self, request):
     #     request.auth.delete()
     #     return Response(status=204)
+
+class AuthorRetrieve(RetrieveAPIView):
+    queryset = get_user_model().objects.all()
+    serializer_class = AuthorSerializer
+    # permission_classes = (IsSuperUserOrStaffReadOnly,)

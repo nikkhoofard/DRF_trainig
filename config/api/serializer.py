@@ -3,14 +3,21 @@ from blog.models import Article
 from django.contrib.auth import get_user_model
 
 
+class AuthorUsernameField(serializers.RelatedField):
+    def to_representation(self, value):
+        return f"{value.first_name} {value.last_name}, username : {value.username}"
+
 
 class AuthorSerializer(serializers.ModelSerializer):
     class Meta:
         model = get_user_model()
         fields = ['id', 'username', 'first_name', 'last_name']
 
+
 class ArticleSerializer(serializers.ModelSerializer):
-    author = AuthorSerializer()
+
+    author = AuthorUsernameField(read_only=True)
+
     class Meta:
         model = Article
         fields = "__all__"
