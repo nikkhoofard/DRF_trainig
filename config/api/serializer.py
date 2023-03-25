@@ -16,7 +16,13 @@ class AuthorSerializer(serializers.ModelSerializer):
 
 class ArticleSerializer(serializers.ModelSerializer):
 
-    author = AuthorUsernameField(read_only=True)
+    def get_author(self, obj):
+        return {
+            "username": obj.author.username,
+            "lastname": obj.author.last_name,
+        }
+
+    author = serializers.SerializerMethodField("get_author")
 
     class Meta:
         model = Article
